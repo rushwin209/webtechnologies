@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .form-container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    .error { color: red; font-size: 12px; margin-top: 3px; display: block; }
+    button { width: 100%; padding: 10px; background: #007BFF; border: none; color: white; font-weight: bold; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .success { color: green; font-size: 14px; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Student Registration</h2>
+    <form id="regForm" onsubmit="return validateForm(event)">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name">
+        <span id="nameError" class="error"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email">
+        <span id="emailError" class="error"></span>
+      </div>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age">
+        <span id="ageError" class="error"></span>
+      </div>
+      <button type="submit">Register</button>
+      <div id="successMsg" class="success"></div>
+    </form>
+  </div>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+      
+      // Get values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = document.getElementById('age').value.trim();
+      
+      // Error elements
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const ageError = document.getElementById('ageError');
+      const successMsg = document.getElementById('successMsg');
+      
+      // Reset messages
+      nameError.textContent = '';
+      emailError.textContent = '';
+      ageError.textContent = '';
+      successMsg.textContent = '';
+      
+      let isValid = true;
+      
+      // Validation checks
+      if (name === '') {
+        nameError.textContent = 'Name is required.';
+        isValid = false;
+      }
+      
+      if (email === '' || !email.includes('@')) {
+        emailError.textContent = 'Valid email is required.';
+        isValid = false;
+      }
+      
+      if (age === '' || age < 5 || age > 100) {
+        ageError.textContent = 'Enter a valid age (5-100).';
+        isValid = false;
+      }
+      
+      // Success action
+      if (isValid) {
+        successMsg.textContent = 'Registration successful!';
+        document.getElementById('regForm').reset();
+      }
+      
+      return false;
+    }
+  </script>
+
+</body>
+</html>
+
