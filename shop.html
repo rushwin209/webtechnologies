@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Shop</title>
+  <!-- Tailwind CSS for lightweight, responsive styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600">SimpleStore</h1>
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-medium">Cart:</span>
+        <span id="cart-count" class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-semibold mb-6">Featured Products</h2>
+    
+    <!-- Product Grid -->
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Products will be injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // Sample product data
+    const products = [
+      { id: 1, name: "Wireless Headphones", price: 49.99, image: "https://via.placeholder.com/300x200?text=Headphones" },
+      { id: 2, name: "Smart Watch", price: 89.99, image: "https://via.placeholder.com/300x200?text=Smart+Watch" },
+      { id: 3, name: "Minimalist Backpack", price: 34.99, image: "https://via.placeholder.com/300x200?text=Backpack" }
+    ];
+
+    let cartCount = 0;
+
+    // Render products
+    const productGrid = document.getElementById('product-grid');
+    productGrid.innerHTML = products.map(product => `
+      <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between">
+        <div>
+          <img src="${product.image}" alt="${product.name}" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="font-medium text-lg">${product.name}</h3>
+          <p class="text-gray-500 mt-1">$${product.price.toFixed(2)}</p>
+        </div>
+        <button onclick="addToCart()" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition">
+          Add to Cart
+        </button>
+      </div>
+    `).join('');
+
+    // Add to cart function
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cart-count').innerText = cartCount;
+    }
+  </script>
+
+</body>
+</html>
+
